@@ -9,33 +9,45 @@ import java.util.List;
 
 public class Queen {
     private final Color color;
+    private final Board board;
     private Position position;
-    public Queen(Color color, int row, int col) {
+    public Queen(Color color, int row, int col, Board b) {
         this.color = color;
         this.position = new Position(row, col);
+        this.board = b;
     }
 
-    public List<Position> nextMoves(int n) {
+    @Override
+    public String toString() {
+        return "Queen{" +
+                "color=" + color +
+                ", position=" + position +
+                '}';
+    }
+
+    public List<Position> nextMoves() {
         List<Position> nextMoves = new ArrayList<>();
-        // Horizontal moves
-        for(int col = 0; col < n; ++col) {
+
+    // Horizontal moves
+    for (int col = 0; col < board.getSize(); ++col) {
             if(col == position.getCol()) continue;
             nextMoves.add(new Position(position.getRow(), col));
         }
 
-        // Vertical moves
-        for(int row = 0; row < n; ++row) {
+    // Vertical moves
+    for (int row = 0; row < board.getSize(); ++row) {
             if(row == position.getRow()) continue;
             nextMoves.add(new Position(row, position.getCol()));
         }
 
-        // Diagonal moves
-        for(int diag = 1; diag < n; ++diag) {
+    // Diagonal moves
+    for (int diag = 1; diag < board.getSize(); ++diag) {
             addDiagonalMove(-1 * diag, -1 * diag,nextMoves);
             addDiagonalMove(-1 * diag, diag,nextMoves);
             addDiagonalMove(diag, -1 * diag,nextMoves);
             addDiagonalMove(diag, diag,nextMoves);
         }
+
 
         return nextMoves;
     }

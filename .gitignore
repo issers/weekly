@@ -1,1 +1,7 @@
+
 *.iml
+Desktop
+Desktop.pub
+.idea/
+out/
+
